@@ -29,6 +29,8 @@ window.addEventListener('DOMContentLoaded', () => {
         announcer.innerHTML = '';
         tiles.forEach(tile => {
             tile.innerHTML = '';
+            tile.classList.remove('playerX');
+            tile.classList.remove('playerO');
         });
     }
 
@@ -36,18 +38,16 @@ window.addEventListener('DOMContentLoaded', () => {
         switch (symbol) {
           case 'X':
             announcer.innerHTML = `${currentPlayer[0]} wins!`;
-            isGameActive = false;
             break;
           case 'O':
             announcer.innerHTML = `${currentPlayer[1]} wins!`;
-            isGameActive = false;
             break;
           case 'draw':
             announcer.innerHTML = `Draw!`;
-            isGameActive = false;
             break;
         }
         announcer.style.display = 'block';
+        isGameActive = false;
       };
 
       const play = (tile, index) => {
@@ -58,11 +58,9 @@ window.addEventListener('DOMContentLoaded', () => {
           board[index] = currentPlayer[turn % 2];
           if (checkWin(board, currentPlayer[turn % 2])) {
             declareWinner(currentPlayer[turn % 2]);
-            isGameActive = false;
           }
           if (!board.includes('')) {
             declareWinner('draw');
-            isGameActive = false;
           }
           playerDisplay.innerHTML = `${currentPlayer[++turn % 2]}`;
         }
